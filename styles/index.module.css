@@ -1,0 +1,16 @@
+.pane {
+  width: 100vw;
+  height: 50vh;
+}
+
+.topPane {
+  background: rgb(12, 12, 12);
+  color: rgb(255, 255, 255);
+  display: flex;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.topPane > * {
+  flex-grow: 1;
+}
