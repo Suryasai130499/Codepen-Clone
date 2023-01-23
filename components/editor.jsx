@@ -1,5 +1,5 @@
-import { useRef } from 'react';
 import Editor from '@monaco-editor/react';
+import { emmetHTML, emmetCSS, emmetJSX } from 'emmet-monaco-es';
 
 import styles from '@/styles/editor.module.css';
 
@@ -13,30 +13,34 @@ const CodeEditor = ({ value, language, setValue }) => {
     cursorSmoothCaretAnimation: true,
     formatOnPaste: true,
     formatOnType: true,
-    glyphMargin: true,
     smoothScrolling: true,
     wordWrap: 'wordWrapColumn',
+    minimap: {
+      enabled: false,
+    },
   };
 
-  const editorRef = useRef(null);
+  const EditorOnMount = () => {
+    console.log(window.monaco);
+    emmetHTML(window.monaco);
+    emmetCSS(window.monaco);
+    emmetJSX(window.monaco);
+  };
 
-  function handleEditorDidMount(editor) {
-    editorRef.current = editor;
-  }
+  // TODO: Add Collapsing Button
 
   return (
-    <div className={styles.editor}>
+    <div className={`${styles.editor}`}>
       <div className={styles.topSection}>
         <p className={styles.title}>{language}</p>
-        <button>O/C</button>
       </div>
       <Editor
         width="100%"
         height="90%"
         language={language}
         theme="vs-dark"
-        defaultValue={value}
-        onMount={handleEditorDidMount}
+        value={value}
+        onMount={EditorOnMount}
         onChange={setValue}
         options={options}
       />

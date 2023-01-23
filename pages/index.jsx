@@ -7,7 +7,10 @@ const Home = () => {
   const [srcDoc, setSrcDoc] = useState('');
   const [html, setHTML] = useLocalStorage('html', '');
   const [css, setCSS] = useLocalStorage('css', '');
-  const [js, setJS] = useLocalStorage('js', '');
+  const [js, setJS] = useLocalStorage(
+    'js',
+    `// import js modules using the prefix "https://cdn.skypack.dev/{package-name}" for using various other packages`,
+  );
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -19,7 +22,9 @@ const Home = () => {
           </head>
           <body>
             ${html}
-            <script>${js}</script>
+            <script type="module">
+              ${js}
+            </script>
           </body>
         </html>
         `,
